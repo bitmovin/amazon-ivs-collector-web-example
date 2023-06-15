@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-player.min.js"></script>
+
+    <script src="https://cdn.bitmovin.com/analytics/web/2/bitmovinanalytics.min.js" type="text/javascript"></script>
+
+    <title>Amazon IVS Collector</title>
+  </head>
+
+  <body>
+    <video id="video-player" controls playsinline width="640" height="264"></video>
+
+    <script>
+      // Setup up your config
+      var config = {
+        key: '<YOUR_ANALYTICS_KEY>', // replace with your analytics key
+        videoId: 'test_stream_1',
+        title: 'Amazon Live Test Stream',
+      };
+
+      if (IVSPlayer.isPlayerSupported) {
+        // Create the player
+        let player = IVSPlayer.create();
+        player.attachHTMLVideoElement(document.getElementById('video-player'));
+        
+        // Create the adapter
+        let adapter = new bitmovin.analytics.adapters.AmazonIVSAdapter(config, player);
+        
+        // And load the video 
+        let ivsLive1080p =
+          'https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8';
+        player.load(ivsLive1080p);
+        player.setMuted(true);
+      }
+    </script>
+  </body>
+</html>
